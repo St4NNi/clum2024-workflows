@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: artifact-repositories
+  annotations:
+    workflows.argoproj.io/default-artifact-repository: artifact-repository
+data:
+  artifact-repository: |
+    s3:
+      bucket: test
+      endpoint: minio-service.minio.svc.cluster.local:9000
+      insecure: true
+      accessKeySecret:
+        name: s3cred
+        key: accesskey
+      secretKeySecret:
+        name: s3cred
+        key: secretkey

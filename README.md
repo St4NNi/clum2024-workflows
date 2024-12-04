@@ -4,6 +4,11 @@
 
 [Argo Workflows](https://argoproj.github.io/workflows/) is a Kubernetes native workflow engine that fully integrates in the Kubernetes cluster.
 
+Getting a Token:
+
+`ARGO_TOKEN="Bearer $(kubectl get secret -n argo workflows.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"`
+
+
 A simple workflow:
 ```yaml
 

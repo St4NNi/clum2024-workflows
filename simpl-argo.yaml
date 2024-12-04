@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: hello-world-whatever  # Name of this Workflow
+spec:
+  entrypoint: hello-world     # Defines "hello-world" as the "main" template
+  templates:
+  - name: hello-world         # Defines the "hello-world" template
+    container:
+      image: busybox
+      command: [echo]
+      args: ["hello world"]
