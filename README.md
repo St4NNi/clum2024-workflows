@@ -351,3 +351,15 @@ spec:
 ```
 
 
+#### Snakemake
+
+```
+kubectl apply -f snakemake-pod.yaml
+```
+
+```
+snakemake --executor kubernetes hello_world --default-stor12:02:55 [20/20]
+--default-storage-prefix s3://test/foobar --jobs 1 --storage-s3-access-key minio --storage-s3-secret-k
+ey miniopwd --storage-s3-endpoint-url http://minio-service.minio.svc.cluster.local:9000
+```
+
