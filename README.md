@@ -99,6 +99,25 @@ DAG based templates
 Play around with it and see: https://github.com/argoproj/argo-workflows/tree/main/examples
 For a lot more examples.
 
+Argo UI:
+
+Get a Bearer Token:
+
+```bash
+ARGO_TOKEN="Bearer $(kubectl get secret -n argo workflows.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"
+```
+
+Port forward the Dashboard:
+
+```bash
+kubectl port-forward -n argo services/argo-server 2746:2746
+```
+
+Login via local browser on:
+
+http://localhost:2746
+
+
 ### Nextflow
 
 #### Creating a nextflow workflow
