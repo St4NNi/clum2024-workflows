@@ -280,11 +280,50 @@ process {
 
 k8s {
     storageClaimName = 'nextflow-rw-many'
-    storageMountPath = '/mount/path'
-    storageSubPath = '/my-data'
+    storageMountPath = '/workspace'
 }
 
 ```
 
+A `ReadWriteMany` storage provider and PVC must be in place.
+You can use NFS for this. The NFS volume must be mounted to the same
+place as your workflow path.
+
+
+```yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextflow-rw-many
+spec:
+  storageClassName: nfs-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nextflow
+spec:
+  serviceAccountName: nextflow
+  volumes:
+    - name: nf-pvc
+      persistentVolumeClaim:
+        claimName: nextflow-rw-many
+  containers:
+    - name: nextflow
+      image: nextflow/nextflow:24.10.2
+      command: ["sleep"]
+      args: ["1000"]
+      volumeMounts:
+        - mountPath: "/workspace"
+          name: nf-pvc
+```
 
 
